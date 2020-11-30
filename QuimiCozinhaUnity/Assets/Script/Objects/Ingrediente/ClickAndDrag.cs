@@ -6,7 +6,7 @@ public class ClickAndDrag : MonoBehaviour
 {
     private float startPosX;
     private float startPosY;
-    private bool isBeingHeld = false;
+    public bool isBeingHeld = false;
 
 
     private void Update()
@@ -41,6 +41,4 @@ public class ClickAndDrag : MonoBehaviour
     {
         isBeingHeld = false;
     }
-
-
 }
