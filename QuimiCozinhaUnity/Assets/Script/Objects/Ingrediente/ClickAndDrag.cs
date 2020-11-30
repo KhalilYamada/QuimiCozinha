@@ -8,6 +8,18 @@ public class ClickAndDrag : MonoBehaviour
     private float startPosY;
     public bool isBeingHeld = false;
 
+    [SerializeField]
+    public Vector3 initialPos;
+
+
+
+
+    private void Start()
+    {
+        initialPos = GetComponent<Transform>().position;
+    }
+
+
 
     private void Update()
     {
@@ -39,6 +51,13 @@ public class ClickAndDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
+        RestartPosition();
+    }
+
+
+    public void RestartPosition()
+    {
         isBeingHeld = false;
+        GetComponent<Transform>().position = initialPos;
     }
 }

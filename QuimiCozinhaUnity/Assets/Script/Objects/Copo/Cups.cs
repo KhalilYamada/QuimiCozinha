@@ -50,7 +50,7 @@ public class Cups : MonoBehaviour
     {
         if (other.CompareTag("Ingredient") && dirtyCup == false)
         {
-            other.GetComponent<ClickAndDrag>().isBeingHeld = false;
+            other.GetComponent<ClickAndDrag>().RestartPosition();
             MixIngredients(other.GetComponent<Sample>().whichSample);
         }
     }
