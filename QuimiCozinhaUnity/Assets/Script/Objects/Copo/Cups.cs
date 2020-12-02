@@ -34,11 +34,18 @@ public class Cups : MonoBehaviour
     private Sprite[] mixedCups;
 
     //Entregar o valor da combinação atual
-    [HideInInspector]
+    //[HideInInspector]
     public int expResult;
 
     //Deve ficar ligada quando um ingrediente for misturado
     private bool dirtyCup = false;
+
+    [SerializeField]
+    private int myIngredient;
+
+
+    [SerializeField]
+    private GameObject[] instructions;
 
 
     void Start()
@@ -51,7 +58,7 @@ public class Cups : MonoBehaviour
         if (other.CompareTag("Ingredient") && dirtyCup == false)
         {
             other.GetComponent<ClickAndDrag>().RestartPosition();
-            MixIngredients(other.GetComponent<Sample>().whichSample);
+            MixIngredients();
         }
     }
 
@@ -65,12 +72,15 @@ public class Cups : MonoBehaviour
 
 
     //Funcao que muda a cor do copo e chama o código responsável pela verificação da combinação correta
-    public void MixIngredients(int ingrediente)
+    public void MixIngredients()
     {
-        Debug.Log((ingrediente + ((whichCup * 3) - 3)) - 1);
-        myCupSprite.sprite = mixedCups[(ingrediente + ((whichCup * 3) - 3)) - 1];
+        cupManagerScript.correct[whichCup - 1] = true;
+
+        instructions[whichCup - 1].SetActive(true);
+
+        myCupSprite.sprite = mixedCups[(myIngredient + ((whichCup * 3) - 3)) - 1];
         dirtyCup = true;
-        expResult = (ingrediente + ((whichCup * 3) - 3)) - 1;
+        expResult = (myIngredient + ((whichCup * 3) - 3)) - 1;
 
         cupManagerScript.AnalyzingData(); //Verifica a combinação correta
     }

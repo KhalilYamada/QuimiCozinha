@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CupManager : MonoBehaviour
 {
@@ -21,7 +22,13 @@ public class CupManager : MonoBehaviour
 
     //Boolean responsável por verificar se os copos estão com a combinação correta
     [SerializeField]
-    private bool[] correct;
+    public bool[] correct;
+
+    [HideInInspector]
+    private bool canActivate = true;
+
+    [SerializeField]
+    private GameObject nextScreenButton;
 
 
     //Responsável por resetar as bools que verificam se a experiência teve o resultado correto
@@ -52,20 +59,16 @@ public class CupManager : MonoBehaviour
     //Deve ser chamada sempre que a criança combinar algo novo no copo
     public void AnalyzingData()
     {
-        for (int i = 0; i < correct.Length; i++)
+        if ((correct[0] == true && correct[1] == true && correct[2] == true) && canActivate == true)
         {
-            if (expObjective[i] * cupsScripts[i].whichCup == cupsScripts[i].expResult)//Dando erro pq não tenho os outros objetos de copo
-            {
-                correct[i] = true;
-            }
-            else
-            {
-                correct[i] = false;
-            }
-        }
-        if (correct[0] == true && correct[1] == true && correct[2] == true)
-        {
-            Debug.Log("Passou de Fase");
+            nextScreenButton.SetActive(true);
+            canActivate = false;
         }
     }
+
+    public void NextScreen()
+    {
+        SceneManager.LoadScene(3);
+    }
+
 }

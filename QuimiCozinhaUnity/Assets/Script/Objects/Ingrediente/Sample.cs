@@ -22,9 +22,5 @@ public class Sample : MonoBehaviour
     [SerializeField]
     private Sprite[] samplesSprites;
 
-    private void Start()
-    {
-        GetComponent<SpriteRenderer>().sprite = samplesSprites[whichSample - 1];
-    }
 
 }
